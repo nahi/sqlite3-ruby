@@ -2493,7 +2493,7 @@ _wrap_sqlite3_prepare(int argc, VALUE *argv, VALUE self) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   sqlite3_stmt *stmt2 ;
-  char *remainder2 ;
+  char *remainder2 = NULL ;
   VALUE vresult = Qnil;
   
   if ((argc < 2) || (argc > 2)) {
@@ -2537,7 +2537,7 @@ _wrap_sqlite3_prepare16(int argc, VALUE *argv, VALUE self) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   sqlite3_stmt *stmt2 ;
-  void *remainder2 ;
+  void *remainder2 = NULL ;
   VALUE vresult = Qnil;
   
   if ((argc < 2) || (argc > 2)) {

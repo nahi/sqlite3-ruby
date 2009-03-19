@@ -166,7 +166,7 @@ typedef void RUBY_VALBLOB;
   } else $result = Qnil;
 }
 
-%typemap(in) (const char * sql,int,sqlite3_stmt**,const char**) (sqlite3_stmt *stmt, char *remainder) {
+%typemap(in) (const char * sql,int,sqlite3_stmt**,const char**) (sqlite3_stmt *stmt, char *remainder = NULL) {
   $1 = RSTRING_PTR($input);
   $2 = RSTRING_LEN($input);
   $3 = &stmt2;
@@ -182,7 +182,7 @@ typedef void RUBY_VALBLOB;
   $result = ary;
 }
 
-%typemap(in) (const void* sql,int,sqlite3_stmt**,const void**) (sqlite3_stmt *stmt, void *remainder) {
+%typemap(in) (const void* sql,int,sqlite3_stmt**,const void**) (sqlite3_stmt *stmt, void *remainder = NULL) {
   $1 = RSTRING_PTR($input);
   $2 = RSTRING_LEN($input);
   $3 = &stmt2;
