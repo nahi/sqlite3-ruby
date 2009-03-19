@@ -2493,7 +2493,7 @@ _wrap_sqlite3_prepare(int argc, VALUE *argv, VALUE self) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   sqlite3_stmt *stmt2 ;
-  char *errmsg2 ;
+  char *remainder2 ;
   VALUE vresult = Qnil;
   
   if ((argc < 2) || (argc > 2)) {
@@ -2508,7 +2508,7 @@ _wrap_sqlite3_prepare(int argc, VALUE *argv, VALUE self) {
     arg2 = RSTRING_PTR(argv[1]);
     arg3 = RSTRING_LEN(argv[1]);
     arg4 = &stmt2;
-    arg5 = &errmsg2;
+    arg5 = &remainder2;
   }
   result = (int)sqlite3_prepare(arg1,(char const *)arg2,arg3,arg4,(char const **)arg5);
   vresult = SWIG_From_int((int)(result));
@@ -2517,7 +2517,7 @@ _wrap_sqlite3_prepare(int argc, VALUE *argv, VALUE self) {
     ary = rb_ary_new2(3);
     rb_ary_push( ary, vresult );
     rb_ary_push( ary, SWIG_NewPointerObj( stmt2, SWIGTYPE_p_sqlite3_stmt, 0 ) );
-    rb_ary_push( ary, errmsg2 ? rb_str_new2( errmsg2 ) : Qnil );
+    rb_ary_push( ary, remainder2 ? rb_str_new2( remainder2 ) : Qnil );
     vresult = ary;
   }
   return vresult;
@@ -2537,7 +2537,7 @@ _wrap_sqlite3_prepare16(int argc, VALUE *argv, VALUE self) {
   void *argp1 = 0 ;
   int res1 = 0 ;
   sqlite3_stmt *stmt2 ;
-  void *errmsg2 ;
+  void *remainder2 ;
   VALUE vresult = Qnil;
   
   if ((argc < 2) || (argc > 2)) {
@@ -2552,7 +2552,7 @@ _wrap_sqlite3_prepare16(int argc, VALUE *argv, VALUE self) {
     arg2 = RSTRING_PTR(argv[1]);
     arg3 = RSTRING_LEN(argv[1]);
     arg4 = &stmt2;
-    arg5 = &errmsg2;
+    arg5 = &remainder2;
   }
   result = (int)sqlite3_prepare16(arg1,(void const *)arg2,arg3,arg4,(void const **)arg5);
   vresult = SWIG_From_int((int)(result));
@@ -2560,12 +2560,12 @@ _wrap_sqlite3_prepare16(int argc, VALUE *argv, VALUE self) {
     VALUE ary;
     int i;
     
-    for( i = 0; ((char*)errmsg2)[i]; i += 2 );
+    for( i = 0; ((char*)remainder2)[i]; i += 2 );
     
     ary = rb_ary_new2(3);
     rb_ary_push( ary, vresult );
     rb_ary_push( ary, SWIG_NewPointerObj( stmt2, SWIGTYPE_p_sqlite3_stmt, 0 ) );
-    rb_ary_push( ary, errmsg2 ? rb_str_new( (char*)errmsg2, i ) : Qnil );
+    rb_ary_push( ary, remainder2 ? rb_str_new( (char*)remainder2, i ) : Qnil );
     vresult = ary;
   }
   return vresult;

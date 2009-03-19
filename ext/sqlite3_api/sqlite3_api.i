@@ -166,11 +166,11 @@ typedef void RUBY_VALBLOB;
   } else $result = Qnil;
 }
 
-%typemap(in) (const char * sql,int,sqlite3_stmt**,const char**) (sqlite3_stmt *stmt, char *errmsg) {
+%typemap(in) (const char * sql,int,sqlite3_stmt**,const char**) (sqlite3_stmt *stmt, char *remainder) {
   $1 = RSTRING_PTR($input);
   $2 = RSTRING_LEN($input);
   $3 = &stmt2;
-  $4 = &errmsg2;
+  $4 = &remainder2;
 }
 
 %typemap(argout) (const char* sql,int,sqlite3_stmt**,const char**) {
@@ -178,27 +178,27 @@ typedef void RUBY_VALBLOB;
   ary = rb_ary_new2(3);
   rb_ary_push( ary, $result );
   rb_ary_push( ary, SWIG_NewPointerObj( stmt2, SWIGTYPE_p_sqlite3_stmt, 0 ) );
-  rb_ary_push( ary, errmsg2 ? rb_str_new2( errmsg2 ) : Qnil );
+  rb_ary_push( ary, remainder2 ? rb_str_new2( remainder2 ) : Qnil );
   $result = ary;
 }
 
-%typemap(in) (const void* sql,int,sqlite3_stmt**,const void**) (sqlite3_stmt *stmt, void *errmsg) {
+%typemap(in) (const void* sql,int,sqlite3_stmt**,const void**) (sqlite3_stmt *stmt, void *remainder) {
   $1 = RSTRING_PTR($input);
   $2 = RSTRING_LEN($input);
   $3 = &stmt2;
-  $4 = &errmsg2;
+  $4 = &remainder2;
 }
 
 %typemap(argout) (const void* sql,int,sqlite3_stmt**,const void**) {
   VALUE ary;
   int i;
 
-  for( i = 0; ((char*)errmsg2)[i]; i += 2 );
+  for( i = 0; ((char*)remainder2)[i]; i += 2 );
 
   ary = rb_ary_new2(3);
   rb_ary_push( ary, $result );
   rb_ary_push( ary, SWIG_NewPointerObj( stmt2, SWIGTYPE_p_sqlite3_stmt, 0 ) );
-  rb_ary_push( ary, errmsg2 ? rb_str_new( (char*)errmsg2, i ) : Qnil );
+  rb_ary_push( ary, remainder2 ? rb_str_new( (char*)remainder2, i ) : Qnil );
   $result = ary;
 }
 
